@@ -113,7 +113,7 @@ public class HttpServerHandler extends ChannelInboundHandlerAdapter {
         imageResponse.headers().set(HttpHeaderNames.CONNECTION,HttpHeaderValues.KEEP_ALIVE) ;
         this.ctx.writeAndFlush(imageResponse) ;
         this.ctx.writeAndFlush(new ChunkedFile(sendFile)) ;
-        // 在多媒体信息发送完毕只后需要设置一个空的消息体，否则内容无法显示
+        // 在多媒体信息发送完毕后需要设置发送一个空的消息体，否则内容无法显示
         ChannelFuture channelFuture = this.ctx.writeAndFlush(LastHttpContent.EMPTY_LAST_CONTENT) ;
         channelFuture.addListener(ChannelFutureListener.CLOSE) ;
     }
